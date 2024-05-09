@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  zipkin-collector:
+    image: openzipkin/zipkin-slim:latest
+    ports:
+      - "9411:9411"
+    networks:
+      - app-network
+  servicea:
+    container_name: servicea
+    build:
+      context: .
+      dockerfile: servicea.Dockerfile
+    environment:
+      - HTTP_PORT=:8080
+      - API_URL=http://serviceb:8181/
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=cep,service.version=0.1.0
+      - ZIPKIN_URL=http://zipkin-collector:9411/api/v2/spans
+      - SERVICE_NAME=cep
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - serviceb
+  serviceb:
+    container_name: serviceb
+    build:
+      context: .
+      dockerfile: serviceb.Dockerfile
+    environment:
+      - HTTP_PORT=:8181
+      - API_KEY=a9b53f9910744477a77220725242602
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=cep,service.version=0.1.0
+      - ZIPKIN_URL=http://zipkin-collector:9411/api/v2/spans
+      - SERVICE_NAME=cep
+    ports:
+      - "8081:8181"
+    networks:
+      - app-network
+    depends_on:
+      zipkin-collector:
+        condition: service_healthy
+
+networks:
+  app-network:
+    driver: bridge

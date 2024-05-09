@@ -10,19 +10,11 @@ down:
 	docker-compose down
 	@echo "Contêineres do aplicativo parados e removidos."
 
-api:
-	go run cmd/api/main.go
-	@echo "Temperatures API iniciada com sucesso."
-
-run:
-	@curl -sv -H "Content-Type: application/json" http://localhost:8081/temperatures/89199000
-	@echo # "Aplicativo executado com sucesso."
-
 test:
 	go test -v ./...
 	@echo "Testes executados com sucesso."
 
 logs:
-	docker-compose logs app
+	docker-compose logs serviceb
 
 .PHONY: go

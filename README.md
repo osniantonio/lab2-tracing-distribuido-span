@@ -60,3 +60,28 @@ Para mais informações sobre Zipkin, você pode clicar aqui
 O código-fonte completo da implementação.
 Documentação explicando como rodar o projeto em ambiente dev.
 Utilize docker/docker-compose para que possamos realizar os testes de sua aplicação.
+
+## Como subir os serviços
+
+Para executar este projeto, execute o seguinte comando:
+
+```sh
+make up
+```
+
+## Como testar o serviço de busca de CEP
+
+Pode utilizar o arquivo arquivo `api.http`, ou realizar um post via postman da seguinte forma:
+
+    Método: POST
+    URL: http://localhost:8080
+    Content-Type: application/json
+    JSON Body request:
+    {
+        "cep": "89199000"
+    }
+
+## Como analisar o tracing via Zipkin
+
+Abrir no navegador:
+http://localhost:9411
