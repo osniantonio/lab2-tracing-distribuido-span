@@ -10,10 +10,6 @@ down:
 	docker-compose down
 	@echo "Contêineres do aplicativo parados e removidos."
 
-test:
-	go test -v ./...
-	@echo "Testes executados com sucesso."
-
 logs:
 	docker-compose logs serviceb
 

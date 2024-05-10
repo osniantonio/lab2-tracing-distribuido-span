@@ -106,12 +106,6 @@ Para parar e remover os contêineres dos serviços a e b
 make down
 ```
 
-Para rodas os testes
-
-```sh
-make test
-```
-
 Para ver os logs do serviço b
 
 ```sh
