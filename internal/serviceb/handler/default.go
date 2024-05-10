@@ -71,13 +71,13 @@ func (h *DefaultHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *DefaultHandler) searchCEP(cep string, ctx context.Context) (string, error) {
-	_, span := h.Tracer.Start(ctx, "cep-searching")
+	_, span := h.Tracer.Start(ctx, "cep")
 	defer span.End()
 	return h.ViaCepApi.Search(cep)
 }
 
 func (h *DefaultHandler) searchTemp(city string, ctx context.Context) (*temp.Temp, error) {
-	_, span := h.Tracer.Start(ctx, "temp-searching")
+	_, span := h.Tracer.Start(ctx, "temperature")
 	defer span.End()
 	return h.WeatherApi.Search(city)
 }

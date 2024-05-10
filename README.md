@@ -85,3 +85,35 @@ Pode utilizar o arquivo arquivo `api.http`, ou realizar um post via postman da s
 
 Abrir no navegador:
 http://localhost:9411
+
+## Demais comandos via make
+
+Para compilar e iniciar os serviços a e b
+
+```sh
+make build
+```
+
+Para iniciar os serviços a e b
+
+```sh
+make up
+```
+
+Para parar e remover os contêineres dos serviços a e b
+
+```sh
+make down
+```
+
+Para rodas os testes
+
+```sh
+make test
+```
+
+Para ver os logs do serviço b
+
+```sh
+logs
+```

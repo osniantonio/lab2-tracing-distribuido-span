@@ -9,6 +9,10 @@ import (
 	"github.com/osniantonio/lab2-tracing-distribuido-span/internal/serviceb/temp"
 )
 
+const (
+	WEATHERAPI_URL = "http://api.weatherapi.com/v1/current.json"
+)
+
 type errorResponse struct {
 	Error struct {
 		Code    int    `json:"code"`
@@ -28,7 +32,7 @@ type WeatherApi struct {
 }
 
 func (a *WeatherApi) Search(city string) (*temp.Temp, error) {
-	req, err := http.NewRequest(http.MethodGet, "http://api.weatherapi.com/v1/current.json", nil)
+	req, err := http.NewRequest(http.MethodGet, WEATHERAPI_URL, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -7,8 +7,12 @@ import (
 	"net/http"
 )
 
+const (
+	VIACEP_URL = "http://viacep.com.br/ws/%s/json/"
+)
+
 var (
-	errUnabletoFindCep = errors.New("can not find zipcode")
+	errCepNotFound = errors.New("can not find zipcode")
 )
 
 type response struct {
@@ -19,21 +23,21 @@ type response struct {
 type ViaCepApi struct{}
 
 func (a *ViaCepApi) Search(cep string) (string, error) {
-	url := fmt.Sprintf("https://viacep.com.br/ws/%s/json/", cep)
+	url := fmt.Sprintf(VIACEP_URL, cep)
 	res, err := http.Get(url)
 	if err != nil {
-		return "", errUnabletoFindCep
+		return "", errCepNotFound
 	}
 	defer res.Body.Close()
 	if res.StatusCode != http.StatusOK {
-		return "", errUnabletoFindCep
+		return "", errCepNotFound
 	}
 	r := &response{}
 	if err := json.NewDecoder(res.Body).Decode(r); err != nil {
-		return "", errUnabletoFindCep
+		return "", errCepNotFound
 	}
 	if r.Errored == "true" {
-		return "", errUnabletoFindCep
+		return "", errCepNotFound
 	}
 	return r.City, nil
 }

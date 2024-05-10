@@ -1,12 +1,14 @@
 version: '3.8'
 
 services:
+
   zipkin-collector:
     image: openzipkin/zipkin-slim:latest
     ports:
       - "9411:9411"
     networks:
       - app-network
+
   servicea:
     container_name: servicea
     build:
@@ -24,6 +26,7 @@ services:
       - app-network
     depends_on:
       - serviceb
+
   serviceb:
     container_name: serviceb
     build:
